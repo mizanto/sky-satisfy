@@ -9,7 +9,7 @@ def test_model_serializer():
     y = pd.Series([1, 0, 1])
     params = {'objective': 'binary:logistic'}
     model = train_model(X, y, params)
-    model_file_path = 'tests/fakes/fake_model.pkl'
+    model_file_path = 'tests/utils/fakes/fake_model.pkl'
     save_model(model, model_file_path)
 
     loaded_model = load_model(model_file_path)
