@@ -3,6 +3,7 @@ Utility functions for evaluating machine learning models for
 the SkySatisfy project.
 """
 
+import numpy as np
 import pandas as pd
 from sklearn.model_selection import KFold
 from sklearn.metrics import (roc_auc_score,
@@ -12,7 +13,8 @@ from sklearn.metrics import (roc_auc_score,
 import xgboost as xgb
 
 
-def evaluate_model(X: pd.DataFrame, y: pd.Series, xgb_params: dict) -> dict:
+def evaluate_model(
+        X: pd.DataFrame, y: pd.Series, xgb_params: dict) -> (dict, dict):
     """Evaluate the model and return metrics."""
     metrics_storage = {
         'auc': [],
@@ -41,4 +43,15 @@ def evaluate_model(X: pd.DataFrame, y: pd.Series, xgb_params: dict) -> dict:
         metrics_storage['recall'].append(recall_score(y_true, y_pred))
         metrics_storage['f1'].append(f1_score(y_true, y_pred))
 
-    return metrics_storage
+    formatted_metrics = format_metrics(metrics_storage)
+
+    return metrics_storage, formatted_metrics
+
+
+def format_metrics(metrics: dict) -> str:
+    formatted_metrics = {}
+    for key, values in metrics.items():
+        mean_value = np.mean(values)
+        std_value = np.std(values)
+        formatted_metrics[key] = f"{mean_value:.3f} \u00B1 {std_value:.3f}"
+    return formatted_metrics

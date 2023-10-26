@@ -24,4 +24,3 @@ def test_preprocess_data():
     assert isinstance(y, pd.Series)
     assert 'satisfaction' not in X.columns
     assert y.equals(pd.Series([1, 0]))
-
