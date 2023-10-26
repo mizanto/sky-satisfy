@@ -15,7 +15,23 @@ import xgboost as xgb
 
 def evaluate_model(
         X: pd.DataFrame, y: pd.Series, xgb_params: dict) -> (dict, dict):
-    """Evaluate the model and return metrics."""
+    """
+    Evaluate an XGBoost model using 5-fold cross-validation.
+
+    Parameters:
+    - X (pd.DataFrame): Feature matrix.
+    - y (pd.Series): Target vector.
+    - xgb_params (dict): Parameters for the XGBoost model.
+
+    Returns:
+    - tuple: Raw metrics and formatted metrics.
+
+    Example:
+    >>> X = pd.DataFrame({'feature1': [1, 2, 3], 'feature2': [4, 5, 6]})
+    >>> y = pd.Series([0, 1, 0])
+    >>> params = {'eta': 0.3, 'max_depth': 6}
+    >>> raw_metrics, formatted_metrics = evaluate_model(X, y, params)
+    """
     metrics_storage = {
         'auc': [],
         'precision': [],

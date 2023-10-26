@@ -22,12 +22,34 @@ FEATURES = [c for c in COLUMNS_TO_KEEP if c != TARGET_COLUMN]
 
 
 def load_data(data_path: str) -> pd.DataFrame:
-    """Load data from a CSV file."""
+    """
+    Load data from a CSV file.
+
+    Parameters:
+    - data_path (str): Path to the CSV file.
+
+    Returns:
+    - pd.DataFrame: Loaded data.
+
+    Example:
+    >>> df = load_data('data.csv')
+    """
     return pd.read_csv(data_path)
 
 
 def preprocess_data(df: pd.DataFrame) -> (pd.DataFrame, pd.Series):
-    """Preprocess the data and return features and target variable."""
+    """
+    Preprocess the data and return features and target variable.
+
+    Parameters:
+    - df (pd.DataFrame): Dataframe to preprocess.
+
+    Returns:
+    - tuple: Feature matrix (pd.DataFrame) and target vector (pd.Series).
+
+    Example:
+    >>> X, y = preprocess_data(df)
+    """
     df = df.copy()
     df = _preprocess_column_names(df)
 
