@@ -1,42 +1,41 @@
+import os
+import logging
+
 from flask import Flask, request, jsonify, abort, render_template_string
 from src.utils.model_serializer import load_model
 from src.utils.predictor import make_prediction
 from src.utils.model_evaluator import format_metrics
-from src.utils.metrics_storage import load_metrics, get_file_creation_date
+from src.utils.metrics_storage import load_metrics, get_metrics_creation_date
 from src.api_docs_generator import generate_api_endpoints_info
-from marshmallow import Schema, fields, ValidationError, validate
+from src.train_and_save_model import train_and_save_model
+from src.schemas.prediction_schema import PredictionSchema
+from src.config import MODEL_FILE_PATH, METRICS_FILE_PATH
 
-PATH_TO_MODEL = 'models/model.pkl'
-PATH_TO_METRICS = 'models/metrics.json'
+
+from marshmallow import ValidationError
+
 
 try:
-    model = load_model(PATH_TO_MODEL)
-    metrics = load_metrics(PATH_TO_METRICS)
+    if not os.path.exists(MODEL_FILE_PATH) or \
+       not os.path.exists(METRICS_FILE_PATH):
+        logging.error("Model or metrics not found. Starting training...")
+        train_and_save_model('data/data.csv', 'models/')
+
+    model = load_model()
+    metrics = load_metrics()
 except Exception as e:
-    print(f"An error occurred while loading the model or metrics: {e}")
+    logging.error(f"An error occurred while loading the model or metrics: {e}")
     abort(500, description="Internal Server Error")
 
 
 app = Flask(__name__)
 
 
-class PredictionSchema(Schema):
-    customer_type = fields.Str(validate=validate.OneOf(['loyal_customer',
-                                                        'disloyal_customer']))
-    age = fields.Int(validate=validate.Range(min=0, max=120))
-    type_of_travel = fields.Str(validate=validate.OneOf(['business_travel',
-                                                         'personal_travel']))
-    flight_distance = fields.Int(required=True)
-    ease_of_online_booking = fields.Int(validate=validate.Range(min=0, max=5))
-    online_boarding = fields.Int(validate=validate.Range(min=0, max=5))
-    class_ = fields.Str(
-        data_key='class', validate=validate.OneOf(['business',
-                                                   'eco',
-                                                   'eco_plus']))
-
-
 @app.route('/predict', methods=['POST'])
 def predict():
+    """
+    Handle prediction requests, using model to predict.
+    """
     try:
         schema = PredictionSchema()
         data = schema.load(request.json)
@@ -50,11 +49,14 @@ def predict():
 
 @app.route('/model/info', methods=['GET'])
 def model_info():
+    """
+    Provide information about the model, including its type and metrics.
+    """
     formatted_metrics = format_metrics(metrics)
     try:
         info = {
             'model_type': 'XGBoost',
-            'training_date': get_file_creation_date(PATH_TO_MODEL),
+            'training_date': get_metrics_creation_date(MODEL_FILE_PATH),
             'metrics': formatted_metrics
         }
         return jsonify(info)
@@ -64,11 +66,17 @@ def model_info():
 
 @app.route('/health', methods=['GET'])
 def health_check():
+    """
+    Health check route. Returns 'OK' if the API is up and running.
+    """
     return jsonify({'status': 'OK'}), 200
 
 
 @app.route('/', methods=['GET'])
 def api_info():
+    """
+    Provide a list of available endpoints and their documentation.
+    """
     docs = generate_api_endpoints_info()
     return render_template_string(docs)
 

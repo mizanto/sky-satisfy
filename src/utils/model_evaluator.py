@@ -11,10 +11,11 @@ from sklearn.metrics import (roc_auc_score,
                              recall_score,
                              f1_score)
 import xgboost as xgb
+from src.config import MODEL_PARAMS
 
 
-def evaluate_model(
-        X: pd.DataFrame, y: pd.Series, xgb_params: dict) -> (dict, dict):
+def evaluate_model(X: pd.DataFrame, y: pd.Series,
+                   xgb_params=MODEL_PARAMS['XGB_PARAMS']) -> (dict, dict):
     """
     Evaluate an XGBoost model using 5-fold cross-validation.
 

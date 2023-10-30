@@ -4,7 +4,9 @@ from src.utils.data_loader import load_data, preprocess_data
 
 def test_load_data():
     df = load_data('tests/utils/fakes/fake_data.csv')
-    assert isinstance(df, pd.DataFrame)
+    assert isinstance(df, pd.DataFrame), (
+        f"Expected pd.DataFrame, got {type(df)}"
+    )
 
 
 def test_preprocess_data():
@@ -20,7 +22,15 @@ def test_preprocess_data():
     })
 
     X, y = preprocess_data(df)
-    assert isinstance(X, pd.DataFrame)
-    assert isinstance(y, pd.Series)
-    assert 'satisfaction' not in X.columns
-    assert y.equals(pd.Series([1, 0]))
+    assert isinstance(X, pd.DataFrame), (
+        f"Expected pd.DataFrame, got {type(X)}"
+    )
+    assert isinstance(y, pd.Series), (
+        f"Expected pd.Series, got {type(y)}"
+    )
+    assert 'satisfaction' not in X.columns, (
+        "'satisfaction' should not be in X.columns"
+    )
+    assert y.equals(pd.Series([1, 0])), (
+        "y should be equal to pd.Series([1, 0])"
+    )

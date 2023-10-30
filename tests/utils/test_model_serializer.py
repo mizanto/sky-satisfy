@@ -9,9 +9,9 @@ def test_model_serializer():
     y = pd.Series([1, 0, 1])
     params = {'objective': 'binary:logistic'}
     model = train_model(X, y, params)
-    model_file_path = 'tests/utils/fakes/fake_model.pkl'
-    save_model(model, model_file_path)
+    save_model(model)
 
-    loaded_model = load_model(model_file_path)
-    assert isinstance(loaded_model, xgb.Booster)
-
+    loaded_model = load_model()
+    assert isinstance(loaded_model, xgb.Booster), (
+        f"Expected xgb.Booster, got {type(loaded_model)}"
+    )

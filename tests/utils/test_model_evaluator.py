@@ -3,8 +3,10 @@ import pandas as pd
 
 
 def test_evaluate_model():
-    X = pd.DataFrame({'feature1': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                      'feature2': [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]})
+    X = pd.DataFrame({
+        'feature1': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        'feature2': [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    })
     y = pd.Series([1, 0, 1, 0, 1, 0, 1, 0, 1, 0])
     params = {'objective': 'binary:logistic'}
     metrics_storage, formatted_metrics = evaluate_model(X, y, params)
@@ -17,7 +19,9 @@ def test_evaluate_model():
 
         for metric in ['auc', 'precision', 'recall', 'f1']:
             for value in metrics[metric]:
-                assert isinstance(value, (float, str))
+                assert isinstance(value, (float, str)), (
+                    f"Expected float or str, got {type(value)}"
+                )
 
 
 def test_format_metrics():
@@ -36,4 +40,6 @@ def test_format_metrics():
     }
 
     formatted = format_metrics(metrics)
-    assert formatted == expected_result
+    assert formatted == expected_result, (
+        f"Expected {expected_result}, got {formatted}"
+    )

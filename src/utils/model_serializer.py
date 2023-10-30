@@ -6,8 +6,10 @@ the SkySatisfy project.
 import pickle
 import xgboost as xgb
 
+from src.config import MODEL_FILE_PATH
 
-def save_model(model: xgb.Booster, path: str):
+
+def save_model(model: xgb.Booster, path=MODEL_FILE_PATH):
     """
     Save the XGBoost model to disk.
 
@@ -23,7 +25,7 @@ def save_model(model: xgb.Booster, path: str):
         pickle.dump(model, f)
 
 
-def load_model(path: str) -> xgb.Booster:
+def load_model(path=MODEL_FILE_PATH) -> xgb.Booster:
     """
     Load the XGBoost model from disk.
 

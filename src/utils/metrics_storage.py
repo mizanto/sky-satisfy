@@ -2,8 +2,10 @@ import json
 import os
 import time
 
+from src.config import METRICS_FILE_PATH
 
-def get_file_creation_date(file_path: str) -> str:
+
+def get_metrics_creation_date(file_path=METRICS_FILE_PATH) -> str:
     """
     Return the creation date of a file.
 
@@ -20,7 +22,7 @@ def get_file_creation_date(file_path: str) -> str:
     return time.strftime('%Y-%m-%d', time.localtime(file_stat.st_ctime))
 
 
-def save_metrics(metrics: dict, path: str):
+def save_metrics(metrics: dict, path=METRICS_FILE_PATH):
     """
     Save metrics to a JSON file.
 
@@ -35,7 +37,7 @@ def save_metrics(metrics: dict, path: str):
         json.dump(metrics, f)
 
 
-def load_metrics(path: str) -> dict:
+def load_metrics(path=METRICS_FILE_PATH) -> dict:
     """
     Load metrics from a JSON file.
 

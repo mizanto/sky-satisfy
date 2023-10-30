@@ -5,9 +5,11 @@ the SkySatisfy project.
 
 import pandas as pd
 import xgboost as xgb
+from src.config import MODEL_PARAMS
 
 
-def train_model(X: pd.DataFrame, y: pd.Series, params: dict) -> xgb.Booster:
+def train_model(X: pd.DataFrame, y: pd.Series,
+                params=MODEL_PARAMS['XGB_PARAMS']) -> xgb.Booster:
     """
     Train an XGBoost model.
 
@@ -26,5 +28,6 @@ def train_model(X: pd.DataFrame, y: pd.Series, params: dict) -> xgb.Booster:
     >>> model = train_model(X, y, params)
     """
     dtrain = xgb.DMatrix(X, label=y, feature_names=X.columns.tolist())
-    model = xgb.train(params, dtrain, num_boost_round=25)
+    model = xgb.train(params, dtrain,
+                      num_boost_round=MODEL_PARAMS['XGB_NUM_BOOST_ROUND'])
     return model

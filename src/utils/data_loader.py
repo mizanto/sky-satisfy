@@ -5,6 +5,8 @@ SkySatisfy project.
 
 import pandas as pd
 
+from src.config import DATASET_FILE_PATH
+
 
 COLUMNS_TO_KEEP = [
     'satisfaction',
@@ -21,7 +23,7 @@ TARGET_COLUMN = 'satisfaction'
 FEATURES = [c for c in COLUMNS_TO_KEEP if c != TARGET_COLUMN]
 
 
-def load_data(data_path: str) -> pd.DataFrame:
+def load_data(data_path=DATASET_FILE_PATH) -> pd.DataFrame:
     """
     Load data from a CSV file.
 

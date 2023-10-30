@@ -9,4 +9,5 @@ def test_train_model():
     params = {'objective': 'binary:logistic'}
 
     model = train_model(X, y, params)
-    assert isinstance(model, xgb.Booster)
+    assert isinstance(model, xgb.Booster), \
+        "Trained model should be an instance of xgb.Booster"
