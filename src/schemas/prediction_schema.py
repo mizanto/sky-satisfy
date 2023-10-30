@@ -18,15 +18,19 @@ class PredictionSchema(Schema):
 
     The schema uses the Marshmallow library for validation.
     """
-    customer_type = fields.Str(validate=validate.OneOf(['loyal_customer',
+    customer_type = fields.Str(required=True,
+                               validate=validate.OneOf(['loyal_customer',
                                                         'disloyal_customer']))
-    age = fields.Int(validate=validate.Range(min=0, max=120))
-    type_of_travel = fields.Str(validate=validate.OneOf(['business_travel',
+    age = fields.Int(required=True, validate=validate.Range(min=0, max=120))
+    type_of_travel = fields.Str(required=True,
+                                validate=validate.OneOf(['business_travel',
                                                          'personal_travel']))
     flight_distance = fields.Int(required=True)
-    ease_of_online_booking = fields.Int(validate=validate.Range(min=0, max=5))
-    online_boarding = fields.Int(validate=validate.Range(min=0, max=5))
-    class_ = fields.Str(
-        data_key='class', validate=validate.OneOf(['business',
-                                                   'eco',
-                                                   'eco_plus']))
+    ease_of_online_booking = fields.Int(required=True,
+                                        validate=validate.Range(min=0, max=5))
+    online_boarding = fields.Int(required=True,
+                                 validate=validate.Range(min=0, max=5))
+    class_ = fields.Str(required=True,
+                        data_key='class',
+                        validate=validate.OneOf(
+                            ['business', 'eco', 'eco_plus']))

@@ -39,7 +39,7 @@ def train_and_save_model():
     X, y = preprocess_data(df)
     model = train_model(X, y)
     raw_metrics, formatted_metrics = evaluate_model(X, y)
-    logging.info(f"Model metrics: {raw_metrics}")
+    logging.info(f"Model metrics: {formatted_metrics}")
 
     # Save the model and metrics
     save_model(model)

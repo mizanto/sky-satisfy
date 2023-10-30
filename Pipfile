@@ -11,6 +11,8 @@ pandas = "*"
 xgboost = "*"
 pytest = "*"
 marshmallow = "*"
+gunicorn = "*"
+flasgger = "*"
 
 [dev-packages]
 
