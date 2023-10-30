@@ -24,6 +24,54 @@ def test_evaluate_model():
                 )
 
 
+def test_evaluate_model_invalid_types():
+    X = [1, 2, 3]
+    y = [0, 1, 0]
+    params = {'objective': 'binary:logistic'}
+    try:
+        evaluate_model(X, y, params)
+    except ValueError:
+        assert True, "Should raise a ValueError for invalid types."
+    else:
+        assert False, "Should have raised a ValueError."
+
+
+def test_evaluate_model_mismatched_sizes():
+    X = pd.DataFrame({'feature1': [1, 2, 3]})
+    y = pd.Series([0, 1])
+    params = {'objective': 'binary:logistic'}
+    try:
+        evaluate_model(X, y, params)
+    except ValueError:
+        assert True, "Should raise a ValueError for mismatched sizes."
+    else:
+        assert False, "Should have raised a ValueError."
+
+
+def test_evaluate_model_invalid_params():
+    X = pd.DataFrame({'feature1': [1, 2, 3]})
+    y = pd.Series([0, 1, 0])
+    params = {'invalid_param': 'value'}
+    try:
+        evaluate_model(X, y, params)
+    except ValueError:
+        assert True, "Should raise a ValueError for invalid params."
+    else:
+        assert False, "Should have raised a ValueError."
+
+
+def test_evaluate_model_empty_data():
+    X = pd.DataFrame()
+    y = pd.Series()
+    params = {'objective': 'binary:logistic'}
+    try:
+        evaluate_model(X, y, params)
+    except ValueError:
+        assert True, "Should raise a ValueError for empty data."
+    else:
+        assert False, "Should have raised a ValueError."
+
+
 def test_format_metrics():
     metrics = {
         'auc': [0.9, 0.91, 0.92],

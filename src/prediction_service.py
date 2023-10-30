@@ -1,5 +1,6 @@
 import os
 import logging
+import logging.config
 
 from flask import Flask, request, jsonify, abort
 from src.utils.model_serializer import load_model
@@ -8,13 +9,15 @@ from src.utils.model_evaluator import format_metrics
 from src.utils.metrics_storage import load_metrics, get_metrics_creation_date
 from src.train_and_save_model import train_and_save_model
 from src.schemas.prediction_schema import PredictionSchema
-from src.config import MODEL_FILE_PATH, METRICS_FILE_PATH
+from src.config import (MODEL_FILE_PATH, METRICS_FILE_PATH, HOST, PORT,
+                        LOGGING_CONFIG)
 
+from werkzeug.exceptions import BadRequest, InternalServerError
 from marshmallow import ValidationError
 from flasgger import Swagger
 
 
-logging.basicConfig(level=logging.INFO)
+logging.config.dictConfig(LOGGING_CONFIG)
 
 
 try:
@@ -37,7 +40,8 @@ swagger = Swagger(app)
 @app.route('/predict', methods=['POST'])
 def predict():
     """
-    Make a prediction based on input data
+    Make a prediction based on input data.
+
     ---
     parameters:
       - name: body
@@ -105,16 +109,25 @@ def predict():
               type: string
               description: The verdict based on the prediction
         examples:
-          {
-            "prediction": 0.991,
-            "verdict": "satisfied"
-          }
+          application/json:
+            {
+              "prediction": 0.991,
+              "verdict": "satisfied"
+            }
       400:
-        description: Invalid input
+        description: Invalid input or Bad request
         examples:
-          {
-            "error": "Invalid input data"
-          }
+          application/json:
+            {
+              "error": "Invalid input data"
+            }
+      500:
+        description: Internal Server Error or An unexpected error occurred
+        examples:
+          application/json:
+            {
+              "error": "Internal server error"
+            }
     """
     try:
         schema = PredictionSchema()
@@ -127,12 +140,21 @@ def predict():
             'prediction': round(prediction, 3),
             'verdict': verdict
           })
+    except FileNotFoundError as e:
+        logging.error(f"File not found: {e}")
+        abort(500, description="Internal Server Error")
     except ValidationError as e:
-        logging.error(f"Validation error: {e.normalized_messages()}")
+        logging.error(f"Validation error: {e}")
         return jsonify({'error': str(e.normalized_messages())}), 400
+    except BadRequest as e:
+        logging.error(f"Bad request: {e}")
+        return jsonify({'error': 'Bad request'}), 400
+    except InternalServerError as e:
+        logging.error(f"Internal server error: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
     except Exception as e:
         logging.error(f"An unexpected error occurred: {e}")
-        return jsonify({'error': str(e)}), 400
+        return jsonify({'error': 'An unexpected error occurred'}), 500
 
 
 @app.route('/model/info', methods=['GET'])
@@ -193,4 +215,4 @@ def health_check():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    app.run(debug=True, host=HOST, port=PORT)

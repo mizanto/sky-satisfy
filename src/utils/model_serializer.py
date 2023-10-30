@@ -21,8 +21,14 @@ def save_model(model: xgb.Booster, path=MODEL_FILE_PATH):
     >>> model = xgb.Booster(model_file='model.json')
     >>> save_model(model, 'saved_model.pkl')
     """
-    with open(path, 'wb') as f:
-        pickle.dump(model, f)
+    if not isinstance(model, xgb.Booster):
+        raise TypeError("Expected model to be an instance of xgb.Booster")
+
+    try:
+        with open(path, 'wb') as f:
+            pickle.dump(model, f)
+    except Exception as e:
+        raise IOError(f"An error occurred while saving the model: {e}")
 
 
 def load_model(path=MODEL_FILE_PATH) -> xgb.Booster:

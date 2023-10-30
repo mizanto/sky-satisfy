@@ -1,6 +1,12 @@
 import pandas as pd
 import xgboost as xgb
 import logging
+import logging.config
+
+from src.config import LOGGING_CONFIG
+
+
+logging.config.dictConfig(LOGGING_CONFIG)
 
 
 def make_prediction(model: xgb.Booster, data: dict) -> list:

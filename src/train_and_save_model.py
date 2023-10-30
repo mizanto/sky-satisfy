@@ -5,12 +5,18 @@ Script for training, evaluating, and saving the flight satisfaction model for
 the SkySatisfy project.
 """
 import logging
+import logging.config
+
 
 from src.utils.data_loader import load_data, preprocess_data
 from src.utils.metrics_storage import save_metrics
 from src.utils.model_trainer import train_model
 from src.utils.model_evaluator import evaluate_model
 from src.utils.model_serializer import save_model
+from src.config import LOGGING_CONFIG
+
+
+logging.config.dictConfig(LOGGING_CONFIG)
 
 
 def train_and_save_model():
