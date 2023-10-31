@@ -4,6 +4,10 @@
 
 This project is a part of the [Machine Learning Zoomcamp](https://github.com/DataTalksClub/machine-learning-zoomcamp) course. It utilizes machine learning to predict customer satisfaction for airlines based on various factors such as class, flight distance, and in-flight entertainment. The model is trained on a [Kaggle dataset](https://www.kaggle.com/datasets/yakhyojon/customer-satisfaction-in-airline/data) that includes 129,880 customer records.
 
+## Deployed Service Address
+
+The service is deployed and can be accessed at [http://13.49.73.255/](http://13.49.73.255/).
+
 ## Technologies Used
 
 - Python: 3.11
@@ -18,6 +22,8 @@ This project is a part of the [Machine Learning Zoomcamp](https://github.com/Dat
 - flasgger: 0.9.7.1
 
 ## Installation
+
+### Local Setup
 
 1. Clone the repository:
 
@@ -37,6 +43,26 @@ This project is a part of the [Machine Learning Zoomcamp](https://github.com/Dat
     pipenv install
     ```
 
+### Docker Setup (Local Build)
+
+Alternatively, you can build the Docker image locally:
+
+Build the image:
+
+    ```bash
+    docker build -t sky-satisfy .
+    ```
+
+### Docker Setup from Docker Hub
+
+You can also pull the image from Docker Hub:
+
+Pull the image:
+
+    ```bash
+    docker pull sergben/sky-satisfy:v1.0.1
+    ```
+
 ## Usage
 
 ### Model Training
@@ -47,12 +73,30 @@ You can train the model by running the following command:
 python src/train_model.py
 ```
 
-### Running the Service
+## Running the Service
 
-Run the service, and if the model is missing in the `models` folder, the service will automatically train it:
+### Local Run
+
+Run the service locally, and if the model is missing in the `models` folder, the service will automatically train it:
 
 ```bash
 gunicorn --bind 0.0.0.0:8000 src.prediction_service:app
+```
+
+### Docker Run (Local Build)
+
+If you have built the Docker image locally, you can run the service as follows:
+
+```bash
+docker run -d -p 8000:8000 sky-satisfy
+```
+
+### Docker Run from Docker Hub
+
+If you have pulled the image from Docker Hub, you can run the service as follows:
+
+```bash
+docker run -d -p 80:80 sergben/sky-satisfy:v1.0.1
 ```
 
 ### Running Tests
@@ -63,21 +107,25 @@ To run the tests, use the following command:
 pytest
 ```
 
-## Docker
+## API Endpoints
 
-To run the application in Docker, execute the following commands:
+### `/apidocs`
 
-1. Build the image:
+GET request to view the detailed API documentation.
 
-    ```bash
-    docker build -t sky-satisfy .
-    ```
+### `/predict`
 
-2. Run the container:
+POST request to make a prediction based on input data.
 
-    ```bash
-    docker run -p 8000:8000 sky-satisfy
-    ```
+### `/model/info`
+
+GET request to retrieve model information and metrics.
+
+### `/health`
+
+GET request to check the health status of the API.
+
+For more detailed API documentation, visit [API Docs](http://13.49.73.255/apidocs/).
 
 ## Project Structure
 
