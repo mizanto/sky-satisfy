@@ -91,7 +91,7 @@ If you have built the Docker image locally, you can run the service as follows:
 docker run -d -p 8000:8000 sky-satisfy
 ```
 
-### Docker Run from Docker Hub
+### Docker Run (Docker Hub)
 
 If you have pulled the image from Docker Hub, you can run the service as follows:
 
@@ -109,19 +109,19 @@ pytest
 
 ## API Endpoints
 
-### `/apidocs`
+#### `/apidocs`
 
 GET request to view the detailed API documentation.
 
-### `/predict`
+#### `/predict`
 
 POST request to make a prediction based on input data.
 
-### `/model/info`
+#### `/model/info`
 
 GET request to retrieve model information and metrics.
 
-### `/health`
+#### `/health`
 
 GET request to check the health status of the API.
 
