@@ -83,7 +83,9 @@ Run the service locally, and if the model is missing in the `models` folder, the
 gunicorn --bind 0.0.0.0:8000 src.prediction_service:app
 ```
 
-### Docker Run (Local Build)
+### Docker Run
+
+#### Local Build
 
 If you have built the Docker image locally, you can run the service as follows:
 
@@ -91,7 +93,7 @@ If you have built the Docker image locally, you can run the service as follows:
 docker run -d -p 8000:8000 sky-satisfy
 ```
 
-### Docker Run (Docker Hub)
+#### Docker Hub
 
 If you have pulled the image from Docker Hub, you can run the service as follows:
 
