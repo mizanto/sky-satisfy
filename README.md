@@ -49,9 +49,9 @@ Alternatively, you can build the Docker image locally:
 
 Build the image:
 
-    ```bash
-    docker build -t sky-satisfy .
-    ```
+```bash
+docker build -t sky-satisfy .
+```
 
 ### Docker Setup from Docker Hub
 
@@ -59,9 +59,9 @@ You can also pull the image from Docker Hub:
 
 Pull the image:
 
-    ```bash
-    docker pull sergben/sky-satisfy:v1.0.1
-    ```
+```bash
+docker pull sergben/sky-satisfy:v1.0.1
+```
 
 ## Usage
 
