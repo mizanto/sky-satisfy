@@ -109,23 +109,21 @@ pytest
 
 ## API Endpoints
 
-#### `/apidocs`
+#### /apidocs
 
-GET request to view the detailed API documentation.
+`GET` request to view the detailed API documentation.
 
-#### `/predict`
+#### /predict
 
-POST request to make a prediction based on input data.
+`POST` request to make a prediction based on input data.
 
-#### `/model/info`
+#### /model/info
 
-GET request to retrieve model information and metrics.
+`GET` request to retrieve model information and metrics.
 
-#### `/health`
+#### /health
 
-GET request to check the health status of the API.
-
-For more detailed API documentation, visit [API Docs](http://13.49.73.255/apidocs/).
+`GET` request to check the health status of the API.
 
 ## Project Structure
 
