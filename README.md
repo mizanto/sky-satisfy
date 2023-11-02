@@ -2,11 +2,29 @@
 
 ## Description
 
-This project is a part of the [Machine Learning Zoomcamp](https://github.com/DataTalksClub/machine-learning-zoomcamp) course. It utilizes machine learning to predict customer satisfaction for airlines based on various factors such as class, flight distance, and in-flight entertainment. The model is trained on a [Kaggle dataset](https://www.kaggle.com/datasets/yakhyojon/customer-satisfaction-in-airline/data) that includes 129,880 customer records.
+This [Machine Learning Zoomcamp](https://github.com/DataTalksClub/machine-learning-zoomcamp) project focuses on preemptively predicting airline customer satisfaction using pre-flight data from [Kaggle](https://www.kaggle.com/datasets/yakhyojon/customer-satisfaction-in-airline/data). The model is designed to analyze factors available before the flight takes off, such as ease of online booking, online boarding, seating class, customer type, age, travel type, and flight distance. By leveraging these inputs, the model aims to help airlines identify potential dissatisfaction risks and improve customer experience proactively, ensuring that interventions can be made before the customer even steps onto the airplane.
 
 ## Deployed Service Address
 
 The service is deployed and can be accessed at [http://13.49.73.255/](http://13.49.73.255/).
+
+## API Endpoints
+
+#### /apidocs
+
+`GET` request to view the detailed API documentation.
+
+#### /predict
+
+`POST` request to make a prediction based on input data.
+
+#### /model/info
+
+`GET` request to retrieve model information and metrics.
+
+#### /health
+
+`GET` request to check the health status of the API.
 
 ## Technologies Used
 
@@ -108,24 +126,6 @@ To run the tests, use the following command:
 ```bash
 pytest
 ```
-
-## API Endpoints
-
-#### /apidocs
-
-`GET` request to view the detailed API documentation.
-
-#### /predict
-
-`POST` request to make a prediction based on input data.
-
-#### /model/info
-
-`GET` request to retrieve model information and metrics.
-
-#### /health
-
-`GET` request to check the health status of the API.
 
 ## Project Structure
 
