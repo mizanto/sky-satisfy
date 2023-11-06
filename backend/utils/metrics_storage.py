@@ -4,7 +4,7 @@ import logging.config
 import os
 import time
 
-from src.config import METRICS_FILE_PATH, LOGGING_CONFIG
+from backend.config import METRICS_FILE_PATH, LOGGING_CONFIG
 
 
 logging.config.dictConfig(LOGGING_CONFIG)

@@ -2,15 +2,16 @@ import os
 import logging
 import logging.config
 
-from flask import Flask, request, jsonify, abort
-from src.utils.model_serializer import load_model
-from src.utils.predictor import make_prediction
-from src.utils.model_evaluator import format_metrics
-from src.utils.metrics_storage import load_metrics, get_metrics_creation_date
-from src.train_and_save_model import train_and_save_model
-from src.schemas.prediction_schema import PredictionSchema
-from src.config import (MODEL_FILE_PATH, METRICS_FILE_PATH, HOST, PORT,
-                        LOGGING_CONFIG)
+from flask import Flask, request, render_template, jsonify, abort
+from backend.utils.model_serializer import load_model
+from backend.utils.predictor import make_prediction
+from backend.utils.model_evaluator import format_metrics
+from backend.utils.metrics_storage import (load_metrics,
+                                           get_metrics_creation_date)
+from backend.train_and_save_model import train_and_save_model
+from backend.schemas.prediction_schema import PredictionSchema
+from backend.config import (MODEL_FILE_PATH, METRICS_FILE_PATH, HOST, PORT,
+                            LOGGING_CONFIG)
 
 from werkzeug.exceptions import BadRequest, InternalServerError
 from marshmallow import ValidationError
@@ -21,8 +22,8 @@ logging.config.dictConfig(LOGGING_CONFIG)
 
 
 try:
-    if not os.path.exists(MODEL_FILE_PATH) or \
-       not os.path.exists(METRICS_FILE_PATH):
+    if not os.path.isfile(MODEL_FILE_PATH) or \
+       not os.path.isfile(METRICS_FILE_PATH):
         logging.error("Model or metrics not found. Starting training...")
         train_and_save_model()
 
@@ -33,8 +34,17 @@ except Exception as e:
     abort(500, description="Internal Server Error")
 
 
-app = Flask(__name__)
+template_dir = os.path.abspath('./frontend/templates')
+static_dir = os.path.abspath('./frontend/static')
+
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 swagger = Swagger(app)
+
+
+@app.route('/')
+def index():
+    """Render the main page with the HTML form."""
+    return render_template('index.html')
 
 
 @app.route('/predict', methods=['POST'])

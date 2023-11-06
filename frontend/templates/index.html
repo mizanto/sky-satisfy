@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Service</title>
+    <!-- Bootstrap CSS included -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Custom CSS file included -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Reducing the margin between form fields */
+        .form-group {
+            margin-bottom: 6px; /* Adjust as needed */
+        }
+
+        /* Ensuring Model Info and Prediction cards have equal height */
+        .card {
+            height: 100%; /* Full height for cards */
+        }
+
+        .button {
+          margin-top: 16px;
+        }
+
+        /* Flex layout for columns to manage card heights correctly */
+        .col-md-6 {
+            display: flex;
+            flex-direction: column;
+            padding: 0; /* Removing space between cards */
+        }
+
+        /* Flex layout for card bodies to fill available space */
+        .card-body {
+            flex: 1; /* Makes card content fill the available space */
+        }
+
+        /* Custom container for maximum width and centering */
+        .custom-container {
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 custom-container">
+        <div class="row">
+            <div class="col-md-6 d-flex flex-column">
+                <!-- Card for the prediction form -->
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title">Flight Details</h4>
+                        <!-- Prediction form -->
+                        <form id="prediction-form" class="mb-4">
+                            <!-- Customer Type field -->
+                            <div class="form-group">
+                                <label for="customer_type">Customer Type:</label>
+                                <select name="customer_type" id="customer_type" class="form-control">
+                                    <option value="loyal_customer">Loyal Customer</option>
+                                    <option value="disloyal_customer">Disloyal Customer</option>
+                                </select>
+                            </div>
+                            <!-- Age field -->
+                            <div class="form-group">
+                                <label for="age">Age:</label>
+                                <input type="number" id="age" name="age" class="form-control" min="0" max="120" required>
+                            </div>
+                            <!-- Type of Travel field -->
+                            <div class="form-group">
+                                <label for="type_of_travel">Type of Travel:</label>
+                                <select name="type_of_travel" id="type_of_travel" class="form-control">
+                                    <option value="business_travel">Business Travel</option>
+                                    <option value="personal_travel">Personal Travel</option>
+                                </select>
+                            </div>
+                            <!-- Flight Distance field -->
+                            <div class="form-group">
+                                <label for="flight_distance">Flight Distance:</label>
+                                <input type="number" id="flight_distance" name="flight_distance" class="form-control" required>
+                            </div>
+                            <!-- Ease of Online Booking dropdown -->
+                            <div class="form-group">
+                                <label for="ease_of_online_booking">Ease of Online Booking:</label>
+                                <select id="ease_of_online_booking" name="ease_of_online_booking" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <!-- Online Boarding dropdown -->
+                            <div class="form-group">
+                                <label for="online_boarding">Online Boarding:</label>
+                                <select id="online_boarding" name="online_boarding" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <!-- Class dropdown -->
+                            <div class="form-group">
+                                <label for="class">Class:</label>
+                                <select name="class" id="class" class="form-control">
+                                    <option value="business">Business</option>
+                                    <option value="eco">Eco</option>
+                                    <option value="eco_plus">Eco Plus</option>
+                                </select>
+                            </div>
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary mb button">Predict</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex flex-column px-3">
+                <!-- Card for model information -->
+                <div class="card mb-3 flex-grow-1">
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="card-title">Model Info</h4>
+                        <!-- Placeholder for model info, hidden by default -->
+                        <div id="model-info" style="display: none;"></div>
+                    </div>
+                </div>
+                <!-- Card for prediction result -->
+                <div class="card flex-grow-1">
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="card-title">Prediction</h4>
+                        <!-- Placeholder for prediction result -->
+                        <div id="prediction-result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies included -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript file included -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

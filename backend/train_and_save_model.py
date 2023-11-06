@@ -8,12 +8,12 @@ import logging
 import logging.config
 
 
-from src.utils.data_loader import load_data, preprocess_data
-from src.utils.metrics_storage import save_metrics
-from src.utils.model_trainer import train_model
-from src.utils.model_evaluator import evaluate_model
-from src.utils.model_serializer import save_model
-from src.config import LOGGING_CONFIG
+from backend.utils.data_loader import load_data, preprocess_data
+from backend.utils.metrics_storage import save_metrics
+from backend.utils.model_trainer import train_model
+from backend.utils.model_evaluator import evaluate_model
+from backend.utils.model_serializer import save_model
+from backend.config import LOGGING_CONFIG
 
 
 logging.config.dictConfig(LOGGING_CONFIG)

@@ -88,7 +88,7 @@ docker pull sergben/sky-satisfy:v1.0.1
 You can train the model by running the following command:
 
 ```bash
-python src/train_model.py
+python backend/train_model.py
 ```
 
 ## Running the Service
@@ -98,7 +98,7 @@ python src/train_model.py
 Run the service locally, and if the model is missing in the `models` folder, the service will automatically train it:
 
 ```bash
-gunicorn --bind 0.0.0.0:8000 src.prediction_service:app
+gunicorn --bind 0.0.0.0:8000 backend.prediction_service:app
 ```
 
 ### Docker Run
@@ -142,7 +142,7 @@ pytest
 │   └── model.pkl
 ├── notebooks/
 |   └── data_exploration.ipynb
-├── src/
+├── backend/
 |   ├── config.py
 |   ├── prediction_service.py
 |   ├── train_and_save_model.py
@@ -153,6 +153,15 @@ pytest
 |       ├── model_serializer.py
 |       ├── model_trainer.py
 |       └── predictor.py
+├── frontend/
+│   ├── static/
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   ├── js/
+│   │   │   └── main.js
+│   │
+│   └── templates/
+│       └── index.html
 └── tests/
     ├── test_prediction_service.py
     └── utils/
@@ -168,3 +177,7 @@ pytest
 ## Author
 
 [Sergei Bendak](https://github.com/mizanto)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE)

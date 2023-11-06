@@ -1,4 +1,4 @@
-from src.utils.model_evaluator import evaluate_model, format_metrics
+from backend.utils.model_evaluator import evaluate_model, format_metrics
 import pandas as pd
 
 

@@ -1,8 +1,8 @@
 import pandas as pd
 import pytest
 import xgboost as xgb
-from src.utils.model_serializer import save_model, load_model
-from src.utils.model_trainer import train_model
+from backend.utils.model_serializer import save_model, load_model
+from backend.utils.model_trainer import train_model
 
 
 def test_model_serializer():

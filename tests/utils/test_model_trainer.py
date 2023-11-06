@@ -1,6 +1,6 @@
 import pandas as pd
 import xgboost as xgb
-from src.utils.model_trainer import train_model
+from backend.utils.model_trainer import train_model
 
 
 def test_train_model():

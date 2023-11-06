@@ -1,0 +1,12 @@
+.form-group {
+    margin-bottom: 10px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    flex: 1; 
+}

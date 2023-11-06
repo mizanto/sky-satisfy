@@ -1,7 +1,7 @@
 import json
 import os
 import re
-from src.utils.metrics_storage import (save_metrics, load_metrics,
+from backend.utils.metrics_storage import (save_metrics, load_metrics,
                                        get_metrics_creation_date)
 
 

@@ -5,7 +5,7 @@ the SkySatisfy project.
 
 import pandas as pd
 import xgboost as xgb
-from src.config import MODEL_PARAMS
+from backend.config import MODEL_PARAMS
 
 
 def train_model(X: pd.DataFrame, y: pd.Series,

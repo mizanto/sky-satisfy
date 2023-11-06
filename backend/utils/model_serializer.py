@@ -6,7 +6,7 @@ the SkySatisfy project.
 import pickle
 import xgboost as xgb
 
-from src.config import MODEL_FILE_PATH
+from backend.config import MODEL_FILE_PATH
 
 
 def save_model(model: xgb.Booster, path=MODEL_FILE_PATH):

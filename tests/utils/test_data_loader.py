@@ -1,8 +1,8 @@
 import pandas as pd
 import pytest
 
-from src.utils.data_loader import load_data, preprocess_data
-from src.config import DATASET_FILE_PATH
+from backend.utils.data_loader import load_data, preprocess_data
+from backend.config import DATASET_FILE_PATH
 
 
 def test_load_data():

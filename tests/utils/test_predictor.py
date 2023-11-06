@@ -1,10 +1,10 @@
 import pandas as pd
 
-from src.utils.predictor import make_prediction, _prepare_data
+from backend.utils.predictor import make_prediction, _prepare_data
 from unittest.mock import patch
 
 
-@patch('src.utils.model_serializer.load_model')
+@patch('backend.utils.model_serializer.load_model')
 def test_make_prediction(mock_load_model):
     mock_model = 'fake_model'
     mock_load_model.return_value = mock_model
@@ -50,7 +50,7 @@ def test_prepare_data():
 
 
 def test_make_prediction_exception():
-    with patch('src.utils.predictor._prepare_data') as mock_prepare:
+    with patch('backend.utils.predictor._prepare_data') as mock_prepare:
         mock_prepare.side_effect = Exception("Test exception")
         prediction = make_prediction('fake_model', {})
         assert 'error' in prediction

@@ -1,5 +1,5 @@
 import pytest
-from src.prediction_service import app
+from backend.prediction_service import app
 
 
 @pytest.fixture

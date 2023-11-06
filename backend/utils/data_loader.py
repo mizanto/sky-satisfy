@@ -7,7 +7,7 @@ import logging
 import logging.config
 import pandas as pd
 
-from src.config import DATASET_FILE_PATH, LOGGING_CONFIG
+from backend.config import DATASET_FILE_PATH, LOGGING_CONFIG
 
 
 logging.config.dictConfig(LOGGING_CONFIG)

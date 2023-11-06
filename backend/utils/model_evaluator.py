@@ -11,7 +11,7 @@ from sklearn.metrics import (roc_auc_score,
                              recall_score,
                              f1_score)
 import xgboost as xgb
-from src.config import MODEL_PARAMS
+from backend.config import MODEL_PARAMS
 
 
 def evaluate_model(X: pd.DataFrame, y: pd.Series,
