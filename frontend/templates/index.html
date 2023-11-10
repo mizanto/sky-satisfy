@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- Custom CSS file included -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         /* Reducing the margin between form fields */
         .form-group {
@@ -19,7 +20,7 @@
         }
 
         .button {
-          margin-top: 16px;
+            margin-top: 16px;
         }
 
         /* Flex layout for columns to manage card heights correctly */
@@ -39,6 +40,27 @@
             max-width: 650px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        /* Ensure consistent padding within cards */
+        .card-body {
+            padding: 1rem; /* Add padding inside the card */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 767px) {
+            /* Stack the cards vertically on smaller screens and adjust padding */
+            .col-md-6, .col-md-12 {
+                display: block;
+                width: 100%;
+                padding-bottom: 15px;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+
+        .col-md-6:last-child .card {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -116,20 +138,20 @@
                 </div>
             </div>
             <div class="col-md-6 d-flex flex-column px-3">
+                <!-- Card for prediction result -->
+                <div class="card mb-3 flex-grow-1">
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="card-title">Prediction</h4>
+                        <!-- Placeholder for prediction result -->
+                        <div id="prediction-result"></div>
+                    </div>
+                </div>
                 <!-- Card for model information -->
                 <div class="card mb-3 flex-grow-1">
                     <div class="card-body d-flex flex-column">
                         <h4 class="card-title">Model Info</h4>
                         <!-- Placeholder for model info, hidden by default -->
                         <div id="model-info" style="display: none;"></div>
-                    </div>
-                </div>
-                <!-- Card for prediction result -->
-                <div class="card flex-grow-1">
-                    <div class="card-body d-flex flex-column">
-                        <h4 class="card-title">Prediction</h4>
-                        <!-- Placeholder for prediction result -->
-                        <div id="prediction-result"></div>
                     </div>
                 </div>
             </div>
