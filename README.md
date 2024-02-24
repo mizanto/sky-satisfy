@@ -4,10 +4,6 @@
 
 This [Machine Learning Zoomcamp](https://github.com/DataTalksClub/machine-learning-zoomcamp) project focuses on preemptively predicting airline customer satisfaction using pre-flight data from [Kaggle](https://www.kaggle.com/datasets/yakhyojon/customer-satisfaction-in-airline/data). The model is designed to analyze factors available before the flight takes off, such as ease of online booking, online boarding, seating class, customer type, age, travel type, and flight distance. By leveraging these inputs, the model aims to help airlines identify potential dissatisfaction risks and improve customer experience proactively, ensuring that interventions can be made before the customer even steps onto the airplane.
 
-## Deployed Service Address
-
-The service is deployed and can be accessed at [http://13.49.73.255/](http://13.49.73.255/).
-
 ## API Endpoints
 
 #### /apidocs
